@@ -9,5 +9,12 @@ spring:
     show-sql: true
     database: mysql
 
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 openweathermap:
   key: 4d16eaf605e8643aec3ac7f317a8af90
+
+logging:
+  config: classpath:logback-spring.xml

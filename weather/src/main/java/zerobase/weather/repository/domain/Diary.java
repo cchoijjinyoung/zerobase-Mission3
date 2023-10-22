@@ -3,6 +3,7 @@ package zerobase.weather.repository.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import zerobase.weather.domain.DateWeather;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,4 +24,11 @@ public class Diary {
     private double temperature;
     private String text;
     private LocalDate date;
+
+    public void setDateWeather(DateWeather dateWeather) {
+        this.date = dateWeather.getDate();
+        this.weather = dateWeather.getWeather();
+        this.icon = dateWeather.getIcon();
+        this.temperature = dateWeather.getTemperature();
+    }
 }
