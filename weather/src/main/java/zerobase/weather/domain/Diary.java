@@ -1,9 +1,8 @@
-package zerobase.weather.repository.domain;
+package zerobase.weather.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import zerobase.weather.domain.DateWeather;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,11 +18,12 @@ public class Diary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String text;
+
+    private LocalDate date;
     private String weather;
     private String icon;
     private double temperature;
-    private String text;
-    private LocalDate date;
 
     public void setDateWeather(DateWeather dateWeather) {
         this.date = dateWeather.getDate();

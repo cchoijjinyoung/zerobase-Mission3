@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import zerobase.weather.repository.domain.Diary;
+import zerobase.weather.domain.Diary;
 import zerobase.weather.service.DiaryService;
 
 import java.time.LocalDate;
@@ -41,12 +41,14 @@ public class DiaryController {
         return diaryService.readDiaries(startDate, endDate);
     }
 
+    @ApiOperation("선택한 날짜의 첫번째 일기 글을 수정합니다")
     @PutMapping("/update/diary")
     void updateDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                      @RequestBody String text) {
         diaryService.updateDiary(date, text);
     }
 
+    @ApiOperation("선택한 날짜의 모든 일기 글을 삭제합니다")
     @DeleteMapping("/delete/diary")
     void deleteDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         diaryService.deleteDiary(date);

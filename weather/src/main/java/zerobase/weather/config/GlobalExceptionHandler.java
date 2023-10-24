@@ -1,17 +1,27 @@
 package zerobase.weather.config;
 
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import zerobase.weather.dto.ErrorResponse;
+import zerobase.weather.exception.WeatherException;
 
+import static zerobase.weather.type.ErrorCode.INTERNAL_SERVER_ERROR;
+
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(WeatherException.class)
+    public ErrorResponse handleWeatherException(WeatherException e) {
+        log.error("{} is occurred.", e.getErrorCode());
+        return new ErrorResponse(e.getErrorCode(), e.getErrorMessage());
+    }
+
     @ExceptionHandler(Exception.class)
-    public Exception handleAllException() {
-        System.out.println("error from GlobalExceptionHandler");
-        return new Exception();
+    public ErrorResponse handleAllException(Exception e) {
+        log.error("Exception is occurred.", e);
+        return new ErrorResponse(INTERNAL_SERVER_ERROR,
+                INTERNAL_SERVER_ERROR.getDescription());
     }
 }
